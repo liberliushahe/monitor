@@ -114,6 +114,18 @@
             <artifactId>commons-codec</artifactId>  
             <version>1.9</version>  
         </dependency>  
+        <!-- mybatis -->
+        <dependency>  
+         	<groupId>org.mybatis</groupId>  
+         	<artifactId>mybatis</artifactId>  
+         	<version>${mybatis.version}</version>  
+     	</dependency>  
+
+     	<dependency>  
+         	<groupId>org.mybatis</groupId>  
+         	<artifactId>mybatis-spring</artifactId>  
+         	<version>1.2.2</version>
+     	</dependency> 
 	</dependencies>
 	<build>
 		<finalName>monitor</finalName>
