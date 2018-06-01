@@ -15,8 +15,8 @@ CREATE TABLE `user` (
   `avatarUrl` varchar(500) NOT NULL DEFAULT '' COMMENT '用户头像',
   `loginType` int(11) NOT NULL DEFAULT '0' COMMENT '0：账号登陆，1：微信登陆',
   `thirdlyId` varchar(100) DEFAULT NULL COMMENT '第三方唯一ID',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `loginType_userName` (`userName`,`loginType`),
-  UNIQUE KEY `loginType_Email` (`email`,`loginType`),
-  KEY `index_thirdlyId` (`thirdlyId`)
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `loginType_userName` (`userName`,`loginType`),
+   UNIQUE KEY `loginType_Email` (`email`,`loginType`),
+   KEY `index_thirdlyId` (`thirdlyId`)
 ) 

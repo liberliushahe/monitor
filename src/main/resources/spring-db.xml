@@ -13,12 +13,8 @@
     http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
     http://www.springframework.org/schema/data/jpa 
     http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
-
-
-    <context:component-scan base-package="com.monitor.dao.**.impl" />  
-    <context:property-placeholder location="classpath:db.properties" />
-
-
+   <context:component-scan base-package="com.monitor.dao.**.impl" />  
+   <context:property-placeholder location="classpath:db.properties" />
     <!-- 数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
         init-method="init" destroy-method="close">
@@ -74,11 +70,12 @@
 
 
     <!-- 事务配置 -->
+
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
     <!-- 使用annotation注解方式配置事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <!-- <tx:annotation-driven transaction-manager="transactionManager" /> --> 
 
 </beans>
