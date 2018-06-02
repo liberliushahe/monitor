@@ -80,21 +80,21 @@ public class MailUtil {
 			if (email.getToAddress() != null && !email.getToAddress().isEmpty()) {
 				InternetAddress[] internetAddressTo = getInternetAddress(email.getToAddress());
 				System.out.println(email.getToAddress().toString());
-				msg.setRecipients(RecipientType.TO, internetAddressTo);
+				msg.setRecipients(javax.mail.Message.RecipientType.TO, internetAddressTo);
 			}
 			// 设置抄送人地址
 			if (email.getCcAddress() != null && !email.getCcAddress().isEmpty()) {
 
 				InternetAddress[] internetAddressCc = getInternetAddress(email.getCcAddress());
 
-				msg.setRecipients(RecipientType.CC, internetAddressCc);
+				msg.setRecipients(javax.mail.Message.RecipientType.CC, internetAddressCc);
 			}
 			// 设置密送人地址
 			if (email.getBccAddress() != null && !email.getBccAddress().isEmpty()) {
 
 				InternetAddress[] internetAddressBcc = getInternetAddress(email.getBccAddress());
 
-				msg.setRecipients(RecipientType.BCC, internetAddressBcc);
+				msg.setRecipients(javax.mail.Message.RecipientType.BCC, internetAddressBcc);
 			}
 
 			// 设置邮件主题
