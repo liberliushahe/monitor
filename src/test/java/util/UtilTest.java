@@ -9,7 +9,11 @@ import org.junit.Test;
 import com.monitor.utils.Email;
 import com.monitor.utils.MailUtil;
 import com.monitor.utils.Utils;
-
+/**
+ * 
+ * @author liushahe
+ *
+ */
 public class UtilTest {
 
 	public void sendEmailByQQTest1(){

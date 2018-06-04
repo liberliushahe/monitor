@@ -1,5 +1,9 @@
 package com.monitor.pojos;
-
+/**
+ * 
+ * @author liushahe
+ * 
+ */
 public class User {
 	private String id;
 	private String userName;

@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.monitor.pojos.User;
 import com.monitor.service.IUserService;
-
+/**
+ * 
+ * @author liushahe
+ * 
+ */
 @Controller
 @RequestMapping("/user")  
 public class UserController {

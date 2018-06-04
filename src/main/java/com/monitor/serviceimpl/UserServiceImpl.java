@@ -6,6 +6,11 @@ import org.springframework.stereotype.Service;
 import com.monitor.dao.IUserDao;
 import com.monitor.pojos.User;
 import com.monitor.service.IUserService;
+/**
+ * 
+ * @author liushahe
+ * 
+ */
 @Service("userService")
 public class UserServiceImpl implements IUserService {
 	 @Autowired

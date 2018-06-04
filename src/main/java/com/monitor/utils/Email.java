@@ -2,22 +2,44 @@ package com.monitor.utils;
 
 import java.io.File;
 import java.util.List;
-
+/**
+ * 
+ * @author liushahe
+ * 
+ */
 public class Email {
-	// 收件人
+
+	/**
+	 * 收件人
+	 */
     private List<String> toAddress = null;
-    // 抄送人地址
+
+    /**
+     * 抄送人地址
+     */
     private List<String> ccAddress = null;
-    // 密送人
+    /**
+     * 密送人
+     */
     private List<String> bccAddress = null;
-    // 附件路径信息
+
+    /**
+     * 附件路径信息
+     */
     private List<File> files = null;
-    // 邮件主题
+    /**
+     * 邮件主题
+     */
     private String subject;
-    //邮件编码
+
+    /**
+     * 邮件编码
+     */
     private String charset;
     
-    // 邮件的文本内容
+    /**
+     * 邮件的文本内容
+     */
     private String content;
     
 	public List<String> getToAddress() {

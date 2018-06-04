@@ -10,6 +10,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd    
         http://www.springframework.org/schema/mvc    
         http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+     <!-- 启用spring mvc注解 -->  
+    <context:annotation-config></context:annotation-config>
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 (自动注入)-->  
     <context:component-scan base-package="com.monitor.controller,com.monitor.service" />  
      <!--避免IE执行AJAX时，返回JSON出现下载文件 -->  
