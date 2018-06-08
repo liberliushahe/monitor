@@ -5,17 +5,16 @@
     xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
     xsi:schemaLocation="http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
-    http://www.springframework.org/schema/mvc 
-    http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd 
-    http://www.springframework.org/schema/context 
-    http://www.springframework.org/schema/context/spring-context-4.2.xsd
     http://www.springframework.org/schema/tx  
     http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+    http://www.springframework.org/schema/context    
+    http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/data/jpa 
     http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
-   <context:component-scan base-package="com.monitor.dao" />  
+   <context:component-scan base-package="com.monitor.dao" /> 
+
    <context:property-placeholder location="classpath:db.properties" />
-   
+   <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>  
     <!-- 数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
         init-method="init" destroy-method="close">
@@ -54,19 +53,20 @@
     </bean>    
 
      <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <!-- 自动扫描mapping/目录下的所有SQL映射的xml文件, 省掉Configuration.xml里的手工配置-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <!-- 自动扫描mapping.xml文件 -->  
         <property name="mapperLocations" value="classpath:com/monitor/mapping/*.xml"></property>  
          
-         <!-- 配置数据库表对应的java实体类 -->
-        <property name="typeAliasesPackage" value="com.monitor.pojos" />
+        <!-- 配置数据库表对应的java实体类 -->
+        <!--<property name="typeAliasesPackage" value="com.monitor.pojos" />  --> 
 
 
     </bean>
 
 
-    <!-- DAO接口所在包名，Spring会自动查找其下的类 ,包下的类需要使用@MapperScan注解,否则容器注入会失败 -->
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 ,包下的类需要使用@MapperScan注解,否则容器注入会失败 这个包以及它的子包下的所有映射接口类-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
         <property name="basePackage" value="com.monitor.dao" />  
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
@@ -80,6 +80,6 @@
     </bean>
 
     <!-- 使用annotation注解方式配置事务 -->
-    <!-- <tx:annotation-driven transaction-manager="transactionManager" /> --> 
+    <tx:annotation-driven transaction-manager="transactionManager" /> 
 
 </beans>

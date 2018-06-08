@@ -20,6 +20,26 @@
         <log4j.version>1.2.17</log4j.version>  
 	</properties>
 	<dependencies>
+
+	<!-- 定时任务quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+	<!-- Sprint-test 相关测试包 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
 	   <!-- 增强集合工具类 -->
 		<dependency>
             <groupId>com.google.guava</groupId>
@@ -217,7 +237,13 @@
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
 				</configuration>
-			</plugin>				
+			</plugin>
+	        <!-- 本地服务器jetty -->
+	        <plugin>
+		         <groupId>org.eclipse.jetty</groupId>
+		         <artifactId>jetty-maven-plugin</artifactId>
+		         <version>9.3.11.v20160721</version>
+	        </plugin>				
 		</plugins>
 		<resources>
 			<resource>

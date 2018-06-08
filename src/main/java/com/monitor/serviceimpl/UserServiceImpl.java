@@ -11,14 +11,14 @@ import com.monitor.service.IUserService;
  * @author liushahe
  * 
  */
-@Service("userService")
+@Service
 public class UserServiceImpl implements IUserService {
 	 @Autowired
-	private IUserDao userDao;  
+	private IUserDao iUserDao;  
 	 
 	@Override
 	public User getUserById(String userId) {
-		return userDao.getUserById(userId);
+		return iUserDao.getUserById(userId);
 	}
 
 
