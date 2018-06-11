@@ -4,20 +4,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.dom4j.DocumentException;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.monitor.beans.TextMessage;
+import com.monitor.utils.ApplicationContextUtil;
+import com.monitor.utils.MessageUtil;
 import com.monitor.utils.SHA1;
 
 /**
+ * 身份认证
  * signature 微信加密签名，signature结合了开发者填写的token参数和请求中的timestamp参数、nonce参数。
  * timestamp 时间戳 
  * nonce     随机数 
@@ -28,19 +35,15 @@ import com.monitor.utils.SHA1;
 @Controller
 @RequestMapping("/wechat")
 public class WeChatServer {
-	private static String Token = "mooc"; 
+	private static String Token = "monitor"; 
 	@RequestMapping(value = "/message", method = RequestMethod.GET)
 	@ResponseBody
 	public void authToken(HttpServletResponse response,HttpServletRequest req){
 		System.out.println("获取微信请求");
-	
 		String signature=req.getParameter("signature");
 		String timestamp=req.getParameter("timestamp");
 		String nonce=req.getParameter("nonce");
 		String echostr=req.getParameter("echostr");
-		System.out.println(timestamp);
-		System.out.println(nonce);
-		System.out.println(echostr);
 		List<String> params = new ArrayList<String>();    
         params.add(Token);    
         params.add(timestamp);    
@@ -55,33 +58,66 @@ public class WeChatServer {
         //2. 将三个参数字符串拼接成一个字符串进行sha1加密    
         String temp = SHA1.encode(params.get(0) + params.get(1) + params.get(2));    
         if (temp.equals(signature)) {    
-            System.out.println("原:"+signature);  
-            System.out.println("测试:"+temp);  
-            System.out.println("匹配正确，传回微信了");  
             try {
 				response.getWriter().write(echostr);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}    
-            System.out.println("传回微信成功");  
+            System.out.println("认证成功");  
         }    
         else {    
-       System.out.println("没有传回去数据，");  
+       System.out.println("认证失败");  
     }   
    }  
- @RequestMapping(value = "/m", method = RequestMethod.GET)
- @ResponseBody
-  public void getinfo(HttpServletResponse response){
-	 System.out.println("mmmmm");
-	 try {
-		response.getWriter().write("qwqww");
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}  
-  }
-		
+    /**
+     * 提交消息到微信服务器
+     * @param resp
+     * @param req
+     */
+	@RequestMapping(value = "/message", method = RequestMethod.POST)
+	@ResponseBody
+	public void returnMessage(HttpServletResponse resp,HttpServletRequest req){	
+	
+		//获取并且解析用户发送消息
+		Map<String, String> map = null;
+		try {
+			map = MessageUtil.parseXML(req);
+			resp.getWriter().write(getReturnMessage(map));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 返回消息文本
+	 * @param map
+	 * @return
+	 */
+	public String getReturnMessage(Map<String,String> map){
+	    String MsgType= map.get("MsgType");
+	    ApplicationContext app=	ApplicationContextUtil.getApplicationContext();	
+	 	TextMessage tx=(TextMessage) app.getBean("tx");
+	    if(MsgType.equals(MessageUtil.RESP_TYPE_TEXT)){
+	    //获取文本消息对象
+	 	tx.setFromUserName(map.get("ToUserName"));
+	 	tx.setToUserName(map.get("FromUserName"));
+	 	tx.setCreateTime(new Date().getTime());
+	 	if(map.get("Content").equals("1")){
+	 		tx.setContent("hello world ");
+	 	}else{
+	 		tx.setContent("hello world my world");
+	 	}
+	 
+	 	tx.setMsgType(MessageUtil.RESP_TYPE_TEXT);
+	 	
+	     
+	    }
+	    return MessageUtil.MessageToXml(tx);
+	}
 }
 	
 

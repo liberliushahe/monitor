@@ -20,7 +20,20 @@
         <log4j.version>1.2.17</log4j.version>  
 	</properties>
 	<dependencies>
-
+	<!--xstream -->
+	<dependency>
+    	<groupId>com.thoughtworks.xstream</groupId>
+    	<artifactId>xstream</artifactId>
+    	<version>1.3.1</version>
+	</dependency>
+	
+    <!--dom4j -->
+	<dependency>
+    	<groupId>dom4j</groupId>
+   	 	<artifactId>dom4j</artifactId>
+    	<version>1.6.1</version>
+	</dependency>
+    
 	<!-- 定时任务quartz -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
