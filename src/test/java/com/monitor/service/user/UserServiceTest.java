@@ -8,7 +8,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.monitor.pojos.User;
 import com.monitor.service.IUserService;
-import com.monitor.serviceimpl.UserServiceImpl;
 /**
  * 
  * @author liushahe

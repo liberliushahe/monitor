@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,14 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.dom4j.DocumentException;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.monitor.beans.TextMessage;
-import com.monitor.utils.ApplicationContextUtil;
 import com.monitor.utils.MessageUtil;
 import com.monitor.utils.SHA1;
 
@@ -98,25 +94,8 @@ public class WeChatServer {
 	 * @return
 	 */
 	public String getReturnMessage(Map<String,String> map){
-	    String MsgType= map.get("MsgType");
-	    ApplicationContext app=	ApplicationContextUtil.getApplicationContext();	
-	 	TextMessage tx=(TextMessage) app.getBean("tx");
-	    if(MsgType.equals(MessageUtil.RESP_TYPE_TEXT)){
-	    //获取文本消息对象
-	 	tx.setFromUserName(map.get("ToUserName"));
-	 	tx.setToUserName(map.get("FromUserName"));
-	 	tx.setCreateTime(new Date().getTime());
-	 	if(map.get("Content").equals("1")){
-	 		tx.setContent("hello world ");
-	 	}else{
-	 		tx.setContent("hello world my world");
-	 	}
-	 
-	 	tx.setMsgType(MessageUtil.RESP_TYPE_TEXT);
-	 	
-	     
-	    }
-	    return MessageUtil.MessageToXml(tx);
+	    //String MsgType= map.get("MsgType");
+	    return MessageUtil.MessageToXml(MessageUtil.RespMessageType("text", map));
 	}
 }
 	

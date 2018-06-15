@@ -16,7 +16,7 @@
 <!-- 创建对象转xml -->
 <bean id="xs" class="com.thoughtworks.xstream.XStream"/>
 <!-- 创建文本消息对象 -->
-<bean id="tx" class="com.monitor.beans.TextMessage"/>
+<bean id="tx" class="com.monitor.dto.wechat.TextMessage"/>
 
 
 </beans>
